@@ -1,5 +1,6 @@
 import axios from 'axios'
 import DataLoader from 'dataloader'
+import { getCategory } from '../helpers/getCategoryFromUrl'
 
 const UrlLoader = new DataLoader(urls => 
     Promise.all(urls.map(getFromUrl)),
@@ -11,23 +12,20 @@ const getFromUrl = async (url) => {
 export default {
   Person: {
     homeworld: async ({ homeworld }, args, context, info) => {
-      console.log(homeworld)
-      const { data } = await axios(homeworld)
+      const { data } = await UrlLoader.load(homeworld)
       return data
     },
     species: ({ species }, args, context, info) => {
-      console.log(species)
       const res = species.map(async s => {
-        const { data } = await axios(s)
+        const { data } = await UrlLoader.load(s)
         return data
       })
       return res
       
     },
     films: async ({ films }, args, context, info) => {
-      console.log('films', films)
       const res = films.map(async f => {
-        const { data } = await axios(f)
+        const { data } = await UrlLoader.load(f)
         return data
       })
       return res
@@ -35,57 +33,31 @@ export default {
   },
   Query: {
     people: async (parent, { url }, context, info) => {
-      console.log(url)
-      const test = [].map(x => x)
-      const { data } = await axios(url)
-      return data
-    },
-    planetSearch: async (parent, { url }, context, info) => {
-      const { data } = await axios(url)
+      const { data } = await UrlLoader.load(url)
 
-      console.log('new call')
+      const category = getCategory(url)
+
+      if (category === "people" ) {
+        return data
+      }
+
+      const people = category === "planets" ? "residents" : "people" 
       
-      //this map should return an [[Residents], [Residents], [Residents]] etc....
-      const res = await Promise.all(data.results.map(async planet => {
-        const residents = await Promise.all(planet.residents.map(async (r) => {
-          const person = await axios(r);
+      const res = await Promise.all(data.results.map(async categoryRes => {
+        const residents = await Promise.all(categoryRes[people].map(async (p) => {
+          const person = await UrlLoader.load(p);
           return person.data
         }));
         return residents
       }))
 
-      //looking good now but need to flatten the array
       const results = [].concat.apply([], res);
 
-      console.log(results)
       return {
         ...data,
         results
       }
     },
-    speciesSearch: async (parent, { url }, context, info) => {
-      const { data } = await axios(url)
-
-      console.log('new call')
-      
-      //this map should return an [[Residents], [Residents], [Residents]] etc....
-      const res = await Promise.all(data.results.map(async species => {
-        const people = await Promise.all(species.people.map(async (p) => {
-          const person = await axios(p);
-          return person.data
-        }));
-        return people
-      }))
-
-      //looking good now but need to flatten the array
-      const results = [].concat.apply([], res);
-
-      console.log(results)
-      return {
-        ...data,
-        results
-      }
-    }
   }
 
 }

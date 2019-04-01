@@ -14,4 +14,7 @@ export default `
     previous: String
     results: [Species!]!
   }
+  type Query {
+    species(url: String!): SpeciesResponse!
+  }
 `;

@@ -16,9 +16,6 @@ export default `
   }
   type Query {
     people(url:String!): PeopleResponse!
-    planetSearch(url:String!): PeopleResponse!
-    speciesSearch(url:String!): PeopleResponse!
-
   }
 
 

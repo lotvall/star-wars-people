@@ -13,8 +13,8 @@ export default `
     previous: String
     results: [Planet!]!
   }
-
+  
   type Query {
-    getAllPlanets: [Planet!]!
+    planets(url: String!): PlanetsResponse!
   }
 `;
