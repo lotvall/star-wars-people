@@ -7,8 +7,13 @@ import MiniSpinner from './spinner/MiniSpinner'
 
 class PeopleList extends Component {
 
+  state = {
+    loadingMore: false
+  }
+
   handleFetchMore = async () => {
     const {fetchMore, next } = this.props
+    this.setState({loading: true})
     await fetchMore({
       variables: {
         url: next
@@ -28,11 +33,14 @@ class PeopleList extends Component {
           }
       }
     })
+    this.setState({loading: false})
+
   }
 
   render() {
     const { count, people, next, loading } = this.props;
-    console.log('loading? peoplelist', loading)
+    const { loadingMore  } = this.state;
+    console.log('loading? peoplelist', loading, loadingMore)
     return (
       <div>
         {people.map((person, index) => (
@@ -40,7 +48,8 @@ class PeopleList extends Component {
           <PersonItem person={person}  />
           {
            (index  === people.length-8) &&
-            !loading &&
+            !loadingMore &&
+            !loading && 
             !!next &&
             <Waypoint onEnter={() => {
               this.handleFetchMore()}   
@@ -50,7 +59,7 @@ class PeopleList extends Component {
         ))}
         
           { 
-            loading &&
+            loadingMore &&
             next &&
             <>
             <LoadingItem count={count} length={people.length}/>
@@ -59,6 +68,13 @@ class PeopleList extends Component {
               <MiniSpinner />
             </div>
             </>
+          }
+          {
+            loading &&
+            <div 
+              style={{marginTop: '15px', marginBottom: '15px'}}>
+              <MiniSpinner />
+            </div>
           }
       </div>
     )

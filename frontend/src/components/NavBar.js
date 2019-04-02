@@ -65,11 +65,11 @@ class NavBar extends Component {
     <Segment vertical style={{display: 'flex', padding: '14px', border: '0', borderBottom: '1px solid #eeeef0',}}>
 
           <Menu secondary style={{margin: '0 0'}}>
-              <Menu.Item name='name' active={activeItem === 'people'} 
+              <Menu.Item name='people' active={activeItem === 'people'} 
                 onClick={this.handleItemClick}
               />
               <Menu.Item
-                name='homeworld'
+                name='planets'
                 active={activeItem === 'planets'}
                 onClick={this.handleItemClick}
 
