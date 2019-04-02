@@ -13,7 +13,7 @@ class PeopleList extends Component {
 
   handleFetchMore = async () => {
     const {fetchMore, next } = this.props
-    this.setState({loading: true})
+    this.setState({loadingMore: true})
     await fetchMore({
       variables: {
         url: next
@@ -33,7 +33,7 @@ class PeopleList extends Component {
           }
       }
     })
-    this.setState({loading: false})
+    this.setState({loadingMore: false})
 
   }
 
@@ -43,6 +43,13 @@ class PeopleList extends Component {
     console.log('loading? peoplelist', loading, loadingMore)
     return (
       <div>
+      {
+            loading &&
+            <div 
+              style={{marginTop: '15px', marginBottom: '15px'}}>
+              <MiniSpinner />
+            </div>
+          }
         {people.map((person, index) => (
           <React.Fragment key={person.url}>
           <PersonItem person={person}  />
@@ -69,13 +76,7 @@ class PeopleList extends Component {
             </div>
             </>
           }
-          {
-            loading &&
-            <div 
-              style={{marginTop: '15px', marginBottom: '15px'}}>
-              <MiniSpinner />
-            </div>
-          }
+          
       </div>
     )
   }

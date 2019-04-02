@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PeopleQuery from '../containers/PeopleQuery'
 import NavBar from '../containers/NavigationContainer'
+import TitleBar from '../components/TitleBar';
 
 class People extends Component { 
 
@@ -8,6 +9,7 @@ class People extends Component {
     const { category, searchString } = this.props.match.params
       return (
           <>
+            <TitleBar/>
             <NavBar category={category}/>
             <PeopleQuery category={category} searchString={searchString}/>
           </>
