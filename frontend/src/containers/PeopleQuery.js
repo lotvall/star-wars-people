@@ -48,6 +48,7 @@ const PeopleRoute = ({category, searchString}) => <Query query={PEOPLE_QUERY} va
         }
         if(error) console.log('there was an error', error)
         if(data) {
+          console.log(loading)
             return(
                 <> 
                     <PeopleList

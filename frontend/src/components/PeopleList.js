@@ -7,13 +7,8 @@ import MiniSpinner from './spinner/MiniSpinner'
 
 class PeopleList extends Component {
 
-  state = {
-    loading: false
-  }
-
   handleFetchMore = async () => {
     const {fetchMore, next } = this.props
-    this.setState({loading: true})
     await fetchMore({
       variables: {
         url: next
@@ -33,13 +28,10 @@ class PeopleList extends Component {
           }
       }
     })
-    this.setState({loading: false})
-
   }
 
   render() {
-    const { count, people, next,  } = this.props;
-    const { loading  } = this.state;
+    const { count, people, next, loading } = this.props;
     console.log('loading? peoplelist', loading)
     return (
       <div>
