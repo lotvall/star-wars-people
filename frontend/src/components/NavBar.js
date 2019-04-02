@@ -60,10 +60,9 @@ class NavBar extends Component {
     }
 
   const searchOptions = data && data.results ? data.results.map(p => ({key: p.url, value: p.name, text: p.name})) : []
-  console.log('loading?', loading)
 
   return (
-    <Segment vertical style={{display: 'flex', padding: '14px', border: '0'}}>
+    <Segment vertical style={{display: 'flex', padding: '14px', border: '0', borderBottom: '1px solid #eeeef0',}}>
 
           <Menu secondary style={{margin: '0 0'}}>
               <Menu.Item name='people' active={activeItem === 'people'} 
