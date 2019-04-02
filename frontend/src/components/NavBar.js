@@ -60,6 +60,7 @@ class NavBar extends Component {
     }
 
   const searchOptions = data && data.results ? data.results.map(p => ({key: p.url, value: p.name, text: p.name})) : []
+  const placeholder = category !== 'people' ? (category === 'planets' ? `Search by homeworld` : `Search by species` ) : `Search by name`
 
   return (
     <Segment vertical style={{display: 'flex', padding: '14px', border: '0', borderBottom: '1px solid #eeeef0',}}>
@@ -83,7 +84,7 @@ class NavBar extends Component {
             
           </Menu>
           <Dropdown
-            placeholder='Search'
+            placeholder={placeholder}
             value={value}
             onChange = {(e, {value, category }) => this.handleChange(value, category)}
             loading={loading}
