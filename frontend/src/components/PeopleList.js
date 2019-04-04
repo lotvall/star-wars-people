@@ -3,6 +3,7 @@ import PersonItem from './PersonItem'
 import { Waypoint } from 'react-waypoint';
 import LoadingItem from './LoadingItem'
 import MiniSpinner from './spinner/MiniSpinner'
+import NoResults from './NoResults';
 
 
 class PeopleList extends Component {
@@ -13,6 +14,8 @@ class PeopleList extends Component {
 
   handleFetchMore = async () => {
     const {fetchMore, next } = this.props
+    console.log('Fetchmore...', next)
+
     this.setState({loadingMore: true})
     await fetchMore({
       variables: {
@@ -38,9 +41,9 @@ class PeopleList extends Component {
   }
 
   render() {
-    const { count, people, next, loading } = this.props;
+    const { count, people, next, loading, searchString } = this.props;
     const { loadingMore  } = this.state;
-    console.log('loading? peoplelist', loading, loadingMore)
+    console.log('loading? peoplelist', searchString, people)
     return (
       <div>
       {
@@ -59,7 +62,9 @@ class PeopleList extends Component {
             !loading && 
             !!next &&
             <Waypoint onEnter={() => {
-              this.handleFetchMore()}   
+              console.log('entered waypoint')
+              this.handleFetchMore()
+              }   
             }/>
           }
           </React.Fragment>
@@ -75,6 +80,12 @@ class PeopleList extends Component {
               <MiniSpinner />
             </div>
             </>
+          }
+
+          {
+            people.length === 0 &&
+            !!searchString &&
+            <NoResults searchString={searchString}/>
           }
           
       </div>

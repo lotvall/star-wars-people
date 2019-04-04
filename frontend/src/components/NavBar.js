@@ -29,14 +29,17 @@ class NavBar extends Component {
     this.setState({
        value
     })
-    this.props.history.push(`/${this.props.match.params.category}/search=${value}`)
+    this.props.history.push(`/${this.props.match.params.category}/${value}`)
     
   }
 
   render() {
     const { activeItem , value} = this.state
     const {fetchMore, loading, data, category} = this.props
-    if(!loading && !!data && !!data.next) {
+    if(!loading && !!data && !!data.next ) {
+      console.log('har ar problemet', data, data.next)
+
+      setTimeout(function() { 
 
       fetchMore({
         variables: {
@@ -57,6 +60,7 @@ class NavBar extends Component {
           }
         }
       })
+      }, 1000);
     }
 
   const searchOptions = data && data.results ? data.results.map(p => ({key: p.url, value: p.name, text: p.name})) : []

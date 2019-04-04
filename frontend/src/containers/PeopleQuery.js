@@ -24,45 +24,59 @@ query ($url: String!) {
         title
       }
     }
+    __typename
   }
 }
 `
 
 
-const PeopleRoute = ({category, searchString}) => <Query query={PEOPLE_QUERY} variables={{url: `https://swapi.co/api/${searchString ? category : 'people'}/?${searchString}`}}>
-{
-    ({fetchMore, loading, error, data}) => {
+const PeopleRoute = ({category, searchString}) => {
+
+  console.log(searchString)
+
+  console.log(`https://swapi.co/api/${searchString ? `${category}/?search=${searchString}` : 'people'}`)
+
+  return (
+    <Query query={PEOPLE_QUERY} fetchPolicy="network-only" variables={
+      {
+        url: `https://swapi.co/api/${searchString ? `${category}/?search=${searchString}` : 'people'}`
+      }
+    }>
+  {
+      ({fetchMore, loading, error, data}) => {
 
 
-        if(loading && !data.people) {
-          return (
-            <>
-              <LoadingItem/>
-              <div 
-                style={{marginTop: '15px', marginBottom: '15px'}}>
-                <MiniSpinner />
-              </div>
-            </>
-          )
-        
-        }
-        if(error) console.log('there was an error', error)
-        if(data) {
-          console.log(loading)
-            return(
-                <> 
-                    <PeopleList
-                        people={data.people.results} 
-                        fetchMore={fetchMore}
-                        next={data.people.next}
-                        count={data.people.count}
-                        loading={loading}
-                    />
-                </>
+          if(loading && !data.people) {
+            return (
+              <>
+                <LoadingItem/>
+                <div 
+                  style={{marginTop: '15px', marginBottom: '15px'}}>
+                  <MiniSpinner />
+                </div>
+              </>
             )
-        }
-    }
+          
+          }
+          if(error) console.log('there was an error', error)
+          if(data) {
+            console.log('logging data', data)
+              return(
+                  <> 
+                      <PeopleList
+                          people={data.people.results} 
+                          fetchMore={fetchMore}
+                          next={data.people.next}
+                          count={data.people.count}
+                          loading={loading}
+                          searchString={searchString}
+                      />
+                  </>
+              )
+          }
+      }
+  }
+  </Query>)
 }
-</Query>
 
 export default PeopleRoute

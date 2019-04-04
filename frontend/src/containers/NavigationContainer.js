@@ -12,7 +12,9 @@ query ($url: String!) {
     results {
       name
       url
+      
     }
+    __typename
   }
 }
 `
