@@ -37,6 +37,7 @@ const LetterAvatars = (props) => {
 
 LetterAvatars.propTypes = {
   classes: PropTypes.object.isRequired,
+  children: PropTypes.string,
 };
 
 export default withStyles(styles)(LetterAvatars);

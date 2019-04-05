@@ -3,14 +3,11 @@ import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import PeopleList from '../components/PeopleList'
 import LoadingItem from '../components/LoadingItem'
-import MiniSpinner from '../components/spinner/MiniSpinner'
 
 const PEOPLE_QUERY = gql `
 query ($url: String!) {
   people(url: $url){
-    count
     next
-    previous
     results {
       name
       url
@@ -24,7 +21,6 @@ query ($url: String!) {
         title
       }
     }
-    __typename
   }
 }
 `
@@ -32,35 +28,27 @@ query ($url: String!) {
 
 const PeopleRoute = ({category, searchString}) => {
 
-  console.log(searchString)
-
-  console.log(`https://swapi.co/api/${searchString ? `${category}/?search=${searchString}` : 'people'}`)
+  const url = searchString ? 
+    `https://swapi.co/api/${category}/?search=${searchString}` : 
+    'https://swapi.co/api/people/'
 
   return (
-    <Query query={PEOPLE_QUERY} fetchPolicy="network-only" variables={
+    <Query query={PEOPLE_QUERY} variables={{url}} notifyOnNetworkStatusChange={true}
+    >
       {
-        url: `https://swapi.co/api/${searchString ? `${category}/?search=${searchString}` : 'people'}`
-      }
-    }>
-  {
-      ({fetchMore, loading, error, data}) => {
+        ({fetchMore, loading, error, data}) => {
 
-
+          if(error) console.log('there was an error', error)
+          
           if(loading && !data.people) {
             return (
               <>
                 <LoadingItem/>
-                <div 
-                  style={{marginTop: '15px', marginBottom: '15px'}}>
-                  <MiniSpinner />
-                </div>
               </>
             )
           
           }
-          if(error) console.log('there was an error', error)
           if(data) {
-            console.log('logging data', data)
               return(
                   <> 
                       <PeopleList
@@ -70,7 +58,15 @@ const PeopleRoute = ({category, searchString}) => {
                           count={data.people.count}
                           loading={loading}
                           searchString={searchString}
+                          category={category}
                       />
+                      {
+                        loading && data.people.next &&
+                        <>
+                        <LoadingItem />
+                        
+                        </>
+                      }
                   </>
               )
           }

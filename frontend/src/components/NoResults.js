@@ -24,10 +24,19 @@ const styles = theme => ({
   },
 });
 
-const NoResults = ({classes, searchString}) => {
+const NoResults = ({classes, searchString, category}) => {
+  let message;
+  console.log(category)
+  if(category==='people') {
+    message = `There are no people with ${searchString} as their name`
+  } else if (category==='planets') {
+    message = `There are no people with ${searchString} as their homeworld`
+  } else if (category==='species') {
+    message = `There are no people with ${searchString} as their species`
+  }
   return (
     <div className={classes.root} elevation={0}>
-      <Typography className={classes.typography} variant="body1">{`There are no people with ${searchString} as their homeworld`}</Typography>
+      <Typography className={classes.typography} variant="body1">{message}</Typography>
     </div>
   );
 }
