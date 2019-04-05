@@ -3,14 +3,28 @@ import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react'
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
   menuStyle: {
-    margin: '0 0',
-    "&:first-child": {
-      marginBottom: 0
-    }
+    //margin: '0 0',
+    marginRight: '0px',
+    marginLeft: '0px',
+    
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      width: '100%',
+      margin:'0px 0px',
+      marginLeft: 0,
+      "&:first-child": {
+        marginBottom: 5,
+        marginLeft: 0,
+      },
+      "&:secondary": {
+        marginRight: 40,
+      },
+    },
   },
-}
+})
 
 const MenuItems = ({classes, activeItem, onClick})=> {
   return (

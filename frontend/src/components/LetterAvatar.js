@@ -5,9 +5,12 @@ import Avatar from '@material-ui/core/Avatar';
 import indigo from '@material-ui/core/colors/indigo';
 
 
-const styles = {
+const styles = theme => ({
   root:{
     paddingLeft: '40px',
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: '10px',
+    },
   },
   avatar: {
     margin: 0,
@@ -18,7 +21,7 @@ const styles = {
     fontSize: '1rem',
 
   },
-};
+});
 
 const LetterAvatars = (props) => {
   const { classes, children } = props;

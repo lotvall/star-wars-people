@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-const styles = () => ({
+const styles = (theme) => ({
     root: {
         flexGrow: 1,
         display:'flex',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        height: '40px'
+        height: '40px',
+        [theme.breakpoints.down('md')]: {
+          alignItems: 'center',
+          height: '60px',
+        }
     },
 });
 

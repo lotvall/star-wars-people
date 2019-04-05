@@ -6,14 +6,17 @@ import MenuItems from '../components/MenuItems'
 import SearchInput from '../components/SearchInput';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {
+const styles = theme => ({
   segment:{
     display: 'flex',
+    [theme.breakpoints.down('md')]: {
+      display: 'inline',
+    },
     padding: '14px',
     border: '0',
     borderBottom: '1px solid #eeeef0',
   }
-}
+})
 
 const NavBar = (props) => {
   const { category, classes } = props
