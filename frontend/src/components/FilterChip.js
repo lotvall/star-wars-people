@@ -16,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-const FilterChip = withRouter(({classes, searchString, category, history}) => {
+const FilterChip = ({classes, searchString, category, history}) => {
   return (
     <div className={classes.root}>
         <Chip
@@ -30,7 +30,7 @@ const FilterChip = withRouter(({classes, searchString, category, history}) => {
         />
     </div>
   );
-})
+}
 
 FilterChip.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -39,4 +39,4 @@ FilterChip.propTypes = {
   category: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(FilterChip);
+export default withStyles(styles)(withRouter(FilterChip))

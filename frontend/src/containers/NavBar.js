@@ -17,13 +17,11 @@ const styles = {
 
 const NavBar = (props) => {
   const { category, classes } = props
-  const [ activeItem ] = useState(category)
+  const [ activeItem, setActiveItem] = useState(category)
 
   const handleCategoryClick = (e, item) => {
     e.preventDefault()
-    this.setState({
-      activeItem: item.name
-    })
+    setActiveItem(item.name)
     props.history.push(`/${item.name}`)
   }
     const placeholder = category !== 'people' ? (category === 'planets' ? `Search by homeworld` : `Search by species`) : `Search by name`
