@@ -1,15 +1,17 @@
-import React, { Component } from 'react'
-import PersonItem from './PersonItem'
+import React from 'react'
+import PropTypes from 'prop-types';
 import { Waypoint } from 'react-waypoint';
-import LoadingItem from './LoadingItem'
+import PersonItem from './PersonItem'
 import MiniSpinner from './spinner/MiniSpinner'
 import NoResults from './NoResults';
 
 
-class PeopleList extends Component {
+const PeopleList = (props) => {
 
-  handleFetchMore = async () => {
-    const {fetchMore, next } = this.props
+  const { people, next, loading, category, searchString } = props;
+
+  const handleFetchMore = async () => {
+    const {fetchMore, next } = props
     await fetchMore({
       variables: {
         url: next
@@ -31,25 +33,23 @@ class PeopleList extends Component {
     })
 
   }
-
-  render() {
-    const { people, next, loading, category, searchString } = this.props;
     return (
       <div>
-      {
-        loading &&
-        <div style={{marginTop: '15px', marginBottom: '15px'}}>
-          <MiniSpinner />
-        </div>
-          }
+        {
+          // render a spinner on top if loading
+          loading &&
+          <div style={{marginTop: '15px', marginBottom: '15px'}}>
+            <MiniSpinner />
+          </div>
+        }
         {
           // Render a list of people
           people.map((person, index) => (
           <React.Fragment key={person.url}>
-            <PersonItem person={person}  />
+            <PersonItem person={person} />
             {
               (index  === people.length-8) && !loading && !!next && 
-              <Waypoint onEnter={() => this.handleFetchMore() } />
+              <Waypoint onEnter={() => handleFetchMore() } />
             }
           </React.Fragment>
         ))}
@@ -62,6 +62,14 @@ class PeopleList extends Component {
       </div>
     )
   }
-}
+
+PeopleList.propTypes = {
+  people: PropTypes.array.isRequired, 
+  next: PropTypes.string, 
+  loading: PropTypes.bool.isRequired, 
+  fetchMore: PropTypes.func.isRequired,
+  searchString: PropTypes.string, 
+  category: PropTypes.string.isRequired,
+};
 
 export default PeopleList

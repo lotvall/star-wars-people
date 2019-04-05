@@ -33,34 +33,31 @@ const PeopleRoute = ({category, searchString}) => {
     'https://swapi.co/api/people/'
 
   return (
-    <Query query={PEOPLE_QUERY} variables={{url}} notifyOnNetworkStatusChange={true}
-    >
+    <Query query={PEOPLE_QUERY} variables={{url}} notifyOnNetworkStatusChange={true} >
       {
-        ({fetchMore, loading, error, data}) => {
+        ({fetchMore, loading, error, data, refetch}) => {
 
-          if(error) console.log('there was an error', error)
+          if(error) {
+            console.log('there was an error', error)
+            // return <ErrorPage/>
+          }
           
           if(loading && !data.people) {
-            return (
-              <>
-                <LoadingItem/>
-              </>
-            )
-          
+            return <LoadingItem/>
           }
           if(data) {
-              return(
+              return (
                   <> 
                       <PeopleList
                           people={data.people.results} 
                           fetchMore={fetchMore}
                           next={data.people.next}
-                          count={data.people.count}
                           loading={loading}
                           searchString={searchString}
                           category={category}
                       />
                       {
+                        // Lazy Loading
                         loading && data.people.next &&
                         <>
                         <LoadingItem />

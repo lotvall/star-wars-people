@@ -13,10 +13,8 @@ export default () => {
     <BrowserRouter>
       <Switch>
         <Redirect from="/" to="/people" exact/>
-        {/* <Route path='/:category' exact component={People} /> */}
-
+        
         <Route path='/:category?/:searchString?' exact component={People}/>
-
         <Route path='/:category' exact component={People}/>      
       </Switch>
     </BrowserRouter>

@@ -26,7 +26,6 @@ const styles = theme => ({
 
 const NoResults = ({classes, searchString, category}) => {
   let message;
-  console.log(category)
   if(category==='people') {
     message = `There are no people with ${searchString} as their name`
   } else if (category==='planets') {
@@ -44,6 +43,8 @@ const NoResults = ({classes, searchString, category}) => {
 
 NoResults.propTypes = {
   classes: PropTypes.object.isRequired,
+  searchString: PropTypes.string, 
+  category: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(NoResults)

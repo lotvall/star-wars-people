@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-const styles = theme => ({
+const styles = () => ({
     root: {
         flexGrow: 1,
         display:'flex',
@@ -13,7 +13,7 @@ const styles = theme => ({
     },
 });
 
-const NavBar = ({classes}) => {
+const TitleBar = ({classes}) => {
   return (
     <div className={classes.root} elevation={0}>
       <Typography variant="h6">Star Wars People</Typography>
@@ -22,8 +22,8 @@ const NavBar = ({classes}) => {
 }
 
 
-NavBar.propTypes = {
+TitleBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavBar)
+export default withStyles(styles)(TitleBar)

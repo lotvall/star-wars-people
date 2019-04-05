@@ -1,18 +1,19 @@
-import React, {
-  Component
-} from 'react'
-import {
-  Menu,
-  Segment,
-  Input,
-  Form
-} from 'semantic-ui-react'
-import {
-  withRouter
-} from 'react-router-dom'
-import {
-  Formik
-} from 'formik'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { Segment } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
+import MenuItems from '../components/MenuItems'
+import SearchInput from '../components/SearchInput';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  segment:{
+    display: 'flex',
+    padding: '14px',
+    border: '0',
+    borderBottom: '1px solid #eeeef0',
+  }
+}
 
 class NavBar extends Component {
   state = {
@@ -36,118 +37,22 @@ class NavBar extends Component {
   }
 
   render() {
-    const {
-      activeItem
-    } = this.state
-    const {
-      category
-    } = this.props
-
+    const { activeItem } = this.state
+    const { category, classes } = this.props
     const placeholder = category !== 'people' ? (category === 'planets' ? `Search by homeworld` : `Search by species`) : `Search by name`
 
     return ( 
-      <Segment vertical style = {
-        {
-          display: 'flex',
-          padding: '14px',
-          border: '0',
-          borderBottom: '1px solid #eeeef0',
-        }
-      } >
-
-      <Menu secondary style = {
-        {
-          margin: '0 0'
-        }
-      } >
-      <Menu.Item name = 'people'
-      active = {
-        activeItem === 'people'
-      }
-      onClick = {
-        this.handleCategoryClick
-      }
-      /> 
-      <Menu.Item name = 'planets'
-      active = {
-        activeItem === 'planets'
-      }
-      onClick = {
-        this.handleCategoryClick
-      }
-
-      />
-
-      <Menu.Item name = 'species'
-      active = {
-        activeItem === 'species'
-      }
-      onClick = {
-        this.handleCategoryClick
-      }
-      />
-
-      </Menu>
-
-      <Formik initialValues = {
-        {
-          searchString: ""
-        }
-      }
-      onSubmit = {
-        (e, actions) => {
-          this.props.history.push(`/${category}/${e.searchString}`)
-          actions.resetForm()
-        }
-      }
-      render = {
-        ({
-          values,
-          setFieldValue,
-          isSubmitting,
-          handleSubmit,
-          handleBlur
-        }) => ( <Form style = {
-            {
-              display: 'flex',
-              width: '100%',
-              margin: '0 .35714286em'
-            }
-          } >
-          <Form.Field style = {
-            {
-              width: '100%',
-            }
-          } >
-          <Input onKeyDown = {
-            (e) => {
-              if (e.keyCode === 13 && !isSubmitting) {
-                handleSubmit(e)
-              }
-            }
-          }
-          onChange = {
-            (e, {
-              value
-            }) => setFieldValue('searchString', value)
-          }
-          name = "message"
-          value = {
-            values.searchString
-          }
-          fluid 
-          placeholder={placeholder}
-          icon = 'search'
-          />
-          </Form.Field>
-
-          </Form>
-        )
-      }
-      /> 
+      <Segment vertical className={classes.segment}>
+        <MenuItems activeItem={activeItem} onClick={this.handleCategoryClick} />
+        <SearchInput placeholder ={placeholder} category={category} history={this.props.history}/>
       </Segment>
     )
   }
 }
 
-export default withRouter(NavBar)
+NavBar.propTypes = {
+  classes: PropTypes.object.isRequired,
+  category: PropTypes.string.isRequired,
+};
+
+export default  (withRouter(withStyles(styles)(NavBar)))
