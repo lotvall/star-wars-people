@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
@@ -15,44 +15,34 @@ const styles = {
   }
 }
 
-class NavBar extends Component {
-  state = {
-    activeItem: null,
-  }
+const NavBar = (props) => {
+  const { category, classes } = props
+  const [ activeItem ] = useState(category)
 
-  componentWillMount() {
-    const { category } = this.props.match.params
-    this.setState({
-      activeItem: category
-    })
-  }
-
-  handleCategoryClick = (e, item) => {
+  const handleCategoryClick = (e, item) => {
     e.preventDefault()
     this.setState({
       activeItem: item.name
     })
-
-    this.props.history.push(`/${item.name}`)
+    props.history.push(`/${item.name}`)
   }
-
-  render() {
-    const { activeItem } = this.state
-    const { category, classes } = this.props
     const placeholder = category !== 'people' ? (category === 'planets' ? `Search by homeworld` : `Search by species`) : `Search by name`
 
     return ( 
-      <Segment vertical className={classes.segment}>
-        <MenuItems activeItem={activeItem} onClick={this.handleCategoryClick} />
-        <SearchInput placeholder ={placeholder} category={category} history={this.props.history}/>
+      <Segment vertical className={classes.segment} >
+        <MenuItems activeItem={activeItem} onClick={handleCategoryClick} />
+        <SearchInput placeholder ={placeholder} category={category} history={props.history}/>
       </Segment>
     )
   }
-}
 
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
   category: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
+
 };
 
-export default  (withRouter(withStyles(styles)(NavBar)))
+export default  withStyles(styles)(
+  withRouter(NavBar)
+)
