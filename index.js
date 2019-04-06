@@ -34,6 +34,8 @@ app.get('/', (req, res) => {
 } )
 
 app.use('/static', express.static('./build/public/static'));
+app.use('facivon', express.static('./build/public/favicon.ico'));
+
 
 
 server.applyMiddleware({ app, graphQLpath });
