@@ -33,6 +33,9 @@ app.get('/', (req, res) => {
   //  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 } )
 
+app.use('/assets', express.static(path.join(__dirname, "../assets")));
+
+
 server.applyMiddleware({ app, graphQLpath });
 
 const PORT = process.env.PORT || 4000
