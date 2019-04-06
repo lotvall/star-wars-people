@@ -4,8 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --exec babel-node server.js",
+    "server": "nodemon --exec babel-node server.js",
+    "client": "npm start --prefix frontend"
   },
   "author": "",
   "license": "ISC",
