@@ -7,10 +7,15 @@
     "server": "nodemon --exec babel-node index.js",
 
     "start": "node ./build/index.js",
-    "build": "npm run clean && npm run build-server",
+    "build": "npm run clean && npm run build-server && npm run build-schema && npm run build-resolvers && npm run build-helpers",
 
     "clean": "rm -rf build && mkdir build",
-    "build-server": "babel -d ./build ./index.js -s"
+    "build-server": "babel -d ./build ./index.js -s",
+    "build-schema": "babel -d ./build/schema ./schema -s",
+    "build-resolvers": "babel -d ./build/resolvers ./resolvers -s",
+    "build-helpers": "babel -d ./build/helpers ./helpers -s"
+
+
   },
   "author": "",
   "license": "ISC",
