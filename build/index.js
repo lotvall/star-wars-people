@@ -16,9 +16,11 @@ var _cors = require('cors');
 
 var _cors2 = _interopRequireDefault(_cors);
 
+require('babel-polyfill');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // import express from 'express'
+// import express from 'express'
 // import { ApolloServer, gql } from 'apollo-server-express'
 // import cors from 'cors'
 // import http from 'http'
@@ -26,6 +28,7 @@ var app = (0, _express2.default)(); // import express from 'express'
 
 // Apollo Server Express w middleware
 
+var app = (0, _express2.default)();
 app.use((0, _cors2.default)());
 var graphQLpath = '/graphql';
 

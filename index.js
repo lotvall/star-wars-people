@@ -12,6 +12,9 @@ import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import path from 'path';
 import cors from 'cors'
 
+import 'babel-polyfill';
+
+
 
 const app = express();
 app.use(cors())
