@@ -9,7 +9,7 @@ const People = (props) => {
   const { category, searchString } = props.match.params
   return (
     <>
-      <TitleBar/>
+      <TitleBar />
       <NavBar category={category}/>
       { searchString && <FilterBar searchString={searchString} category={category} /> }
       <PeopleQuery category={category} searchString={searchString}/>
