@@ -38,7 +38,6 @@ var typeDefs = (0, _mergeGraphqlSchemas.mergeTypes)(types, { all: true });
 
 var server = new _apolloServerExpress.ApolloServer({ typeDefs: typeDefs, resolvers: resolvers });
 
-//Mount a jwt or other authentication middleware that is run before the GraphQL execution
 app.use(graphQLpath, _express2.default.static('public'));
 
 app.get('*', function (req, res) {
@@ -47,7 +46,9 @@ app.get('*', function (req, res) {
 
 server.applyMiddleware({ app: app, graphQLpath: graphQLpath });
 
-app.listen({ port: 4000 }, function () {
+var PORT = process.env.PORT || 4000;
+
+app.listen({ port: PORT }, function () {
   return console.log('\uD83D\uDE80 Server ready at http://localhost:4000' + server.graphqlPath);
 });
 
