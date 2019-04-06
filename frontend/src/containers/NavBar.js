@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   segment:{
     display: 'flex',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'inline',
     },
     padding: '14px',

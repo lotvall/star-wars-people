@@ -5,11 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   menuStyle: {
-    //margin: '0 0',
+    margin: '0 0',
     marginRight: '0px',
     marginLeft: '0px',
+    "&:first-child": {
+      marginBottom: 0,
+      marginLeft: 5,
+    },
     
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       justifyContent: 'space-evenly',
       alignItems: 'center',
       width: '100%',
@@ -18,9 +22,6 @@ const styles = theme => ({
       "&:first-child": {
         marginBottom: 5,
         marginLeft: 0,
-      },
-      "&:secondary": {
-        marginRight: 40,
       },
     },
   },

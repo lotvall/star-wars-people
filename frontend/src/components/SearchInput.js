@@ -9,7 +9,7 @@ const styles = (theme) => ({
     display: 'flex',
     width: '100%',
     margin: '0.35714286em',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
@@ -21,14 +21,15 @@ const styles = (theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
-    width: '95%',
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      width: '95%',
+    }
   },
   input: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
     width: '100%',
   }
   
