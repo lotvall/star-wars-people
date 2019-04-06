@@ -2,7 +2,8 @@
   "name": "star-wars-people",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "homepage": "http://star-wars-people-viewer.herokuapp.com/",
+  "main": "index.js",
   "scripts": {
     "server": "nodemon --exec babel-node index.js",
     "start": "node ./build/index.js",
