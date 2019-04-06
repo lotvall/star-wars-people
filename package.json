@@ -6,7 +6,6 @@
   "scripts": {
     "server": "nodemon --exec babel-node index.js",
     "start": "node ./build/index.js",
-    "heroku-postbuild": "node ./build/index.js",
     "build": "npm run clean && npm run build-server && npm run build-schema && npm run build-resolvers && npm run build-helpers",
     "clean": "rm -rf build && mkdir build",
     "build-server": "babel -d ./build ./index.js -s",
