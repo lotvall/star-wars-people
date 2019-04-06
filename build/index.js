@@ -29,8 +29,8 @@ var app = (0, _express2.default)(); // import express from 'express'
 app.use((0, _cors2.default)());
 var graphQLpath = '/graphql';
 
-var types = (0, _mergeGraphqlSchemas.fileLoader)(_path2.default.join(__dirname, '../schema'));
-var resolvers = (0, _mergeGraphqlSchemas.mergeResolvers)((0, _mergeGraphqlSchemas.fileLoader)(_path2.default.join(__dirname, '../resolvers')));
+var types = (0, _mergeGraphqlSchemas.fileLoader)(_path2.default.join(__dirname, './schema'));
+var resolvers = (0, _mergeGraphqlSchemas.mergeResolvers)((0, _mergeGraphqlSchemas.fileLoader)(_path2.default.join(__dirname, './resolvers')));
 var typeDefs = (0, _mergeGraphqlSchemas.mergeTypes)(types, { all: true });
 
 var server = new _apolloServerExpress.ApolloServer({ typeDefs: typeDefs, resolvers: resolvers });
@@ -66,4 +66,4 @@ app.listen({ port: 4000 }, function () {
 // server.listen({port: PORT}).then((server) => {
 //   console.log(`🚀  Server ready at ${server.url}`);
 // });
-//# sourceMappingURL=server.js.map
+//# sourceMappingURL=index.js.map
