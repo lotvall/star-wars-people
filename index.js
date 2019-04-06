@@ -29,7 +29,7 @@ const server = new ApolloServer({ typeDefs, resolvers });
 app.use(graphQLpath, express.static('public'));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', '../public/build/index.html'))
+  res.sendFile(path.resolve(__dirname, 'public', './public/build/index.html'))
 } )
 
 server.applyMiddleware({ app, graphQLpath });
