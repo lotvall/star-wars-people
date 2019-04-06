@@ -41,7 +41,7 @@ var server = new _apolloServerExpress.ApolloServer({ typeDefs: typeDefs, resolve
 app.use(graphQLpath, _express2.default.static('public'));
 
 app.get('*', function (req, res) {
-  res.sendFile(_path2.default.resolve(__dirname, 'public', '../public/build/index.html'));
+  res.sendFile(_path2.default.resolve(__dirname, 'public', './public/build/index.html'));
 });
 
 server.applyMiddleware({ app: app, graphQLpath: graphQLpath });

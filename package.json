@@ -6,7 +6,7 @@
   "scripts": {
     "server": "nodemon --exec babel-node index.js",
     "start": "node ./build/index.js",
-    "build": "npm run clean && npm run build-server && npm run build-schema && npm run build-resolvers && npm run build-helpers npm run public",
+    "build": "npm run clean && npm run build-server && npm run build-schema && npm run build-resolvers && npm run build-helpers && npm run build-public",
     "clean": "rm -rf build && mkdir build",
     "build-server": "babel -d ./build ./index.js -s",
     "build-schema": "babel -d ./build/schema ./schema -s",
