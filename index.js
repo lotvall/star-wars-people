@@ -30,7 +30,7 @@ app.use(graphQLpath, express.static('public'));
 
 app.get('*', (req, res) => {
   
-  res.sendFile(path.resolve('./public/index.html'))
+  res.sendFile(path.resolve('./build/public/index.html'))
   //  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 
 } )
