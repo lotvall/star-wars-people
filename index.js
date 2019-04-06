@@ -28,13 +28,21 @@ const server = new ApolloServer({ typeDefs, resolvers });
 
 app.use(graphQLpath, express.static('public'));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve('./build/public/index.html'))
-  //  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
-} )
+// app.get('/', (req, res) => {
+//   res.sendFile(path.resolve('./build/public/index.html'))
+//   //  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+// } )
 
-app.use('/static', express.static('./build/public/static'));
-app.use('facivon', express.static('./build/public/favicon.ico'));
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('build/public'));
+}
+
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// app.use('/static', express.static('./build/public/static'));
+// app.use('facivon', express.static('./build/public/favicon.ico'));
 
 
 
