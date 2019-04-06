@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
   //  res.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 } )
 
-app.use('/assets', express.static(path.join(__dirname, "../assets")));
+app.use('/static', express.static(path.join(__dirname, "'./build/public/static'")));
 
 
 server.applyMiddleware({ app, graphQLpath });
