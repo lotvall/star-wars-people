@@ -36,7 +36,8 @@ app.use(graphQLpath, express.static('public'));
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('build/public'));
   app.get('/*', (request, response) => {
-    response.sendFile(path.join(__dirname, 'build/public', 'index.html'));
+    //response.sendFile(path.join(__dirname, 'build/public', 'index.html'));
+    response.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
 }
 
