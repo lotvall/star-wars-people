@@ -34,12 +34,13 @@ app.use(graphQLpath, express.static('public'));
 // } )
 
 if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('build/public'));
+  app.use(express.static('build/public'));
+  app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'build/public', 'index.html'));
+  });
 }
 
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'build/public', 'index.html'));
-});
+
 
 // app.use('/static', express.static('./build/public/static'));
 // app.use('facivon', express.static('./build/public/favicon.ico'));
