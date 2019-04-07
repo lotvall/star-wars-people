@@ -39,7 +39,6 @@ const PeopleRoute = ({category, searchString}) => {
 
           if(error) {
             console.log('there was an error', error)
-            // return <ErrorPage/>
           }
           
           if(loading && !data.people) {

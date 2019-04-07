@@ -1,6 +1,5 @@
 import axios from 'axios'
 import DataLoader from 'dataloader'
-import { getCategory } from '../helpers/getCategoryFromUrl'
 
 const UrlLoader = new DataLoader(urls => 
     Promise.all(urls.map(getFromUrl)),
@@ -14,7 +13,6 @@ export default {
   Query: {
     planets: async (parent, { url }, context, info) => {
       const { data } = await UrlLoader.load(url)
-      console.log(data)
       return data
     },
   }
