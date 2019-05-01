@@ -8,6 +8,8 @@ const styles = theme => ({
     margin: '0 0',
     marginRight: '0px',
     marginLeft: '0px',
+    paddingLeft: '40px',
+    paddingRight: '11px',
     "&:first-child": {
       marginBottom: 0,
       marginLeft: 5,
